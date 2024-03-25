@@ -53,7 +53,7 @@ class PDF(FPDF):
         
 @app.route('/rota2')
 def print():
-    return jsonfy({"Olá})
+    return jsonfy({"Olá"})
 
 @app.route('/receituario', methods=['GET', 'POST'])
 def gerar_pdf():
