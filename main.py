@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonfy
 from fpdf import FPDF
 from datetime import datetime
 
@@ -50,6 +50,10 @@ class PDF(FPDF):
         self.set_x(-30)
         self.set_font('helvetica', '', 10)
         self.cell(0, 0, formatData, align='R')
+        
+@app.route('/rota2')
+def print():
+    return jsonfy({"Olá})
 
 @app.route('/receituario', methods=['GET', 'POST'])
 def gerar_pdf():
