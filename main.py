@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, jsonfy
+from flask import Flask, render_template, request, send_file, jsonify
 from fpdf import FPDF
 from datetime import datetime
 
@@ -52,7 +52,7 @@ class PDF(FPDF):
         self.cell(0, 0, formatData, align='R')
         
 @app.route('/rota2')
-def print():
+def imprimir():
     return jsonfy({"Olá"})
 
 @app.route('/receituario', methods=['GET', 'POST'])
@@ -92,12 +92,12 @@ def gerar_pdf():
         #     form.multi_cell(0, 10, item, align='L')
 
         # Salvar PDF temporariamente
-        # pdf_temp = 'temp.pdf'
-        # form.output(pdf_temp)
+        pdf_temp = 'temp.pdf'
+        form.output(pdf_temp)
 
         # Enviar o arquivo PDF como resposta
         #return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
-        return send_file(form.output(), as_attachment=True, attachment_filename='receituario_1.pdf')
+        return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
         #form.output('receituario_1.pdf')
     #return render_template('formulario.html')
 
