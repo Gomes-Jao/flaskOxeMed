@@ -44,7 +44,7 @@ class PDF(FPDF):
         self.image('oxemed_bg.png', -8, 78, 165)
         
         data = datetime.now()
-        formatData = f'{data.strftime('%d')} de {self.meses[data.strftime('%m')]} de {data.strftime('%Y')}'
+        formatData = f"{data.strftime('%d')} de {self.meses[data.strftime('%m')]} de {data.strftime('%Y')}"
 
         self.set_y(-15)
         self.set_x(-30)
@@ -53,7 +53,7 @@ class PDF(FPDF):
         
 @app.route('/rota2')
 def imprimir():
-    return jsonfy({"Olá"})
+    return jsonify({"Olá": "Mundo"})
 
 @app.route('/receituario', methods=['GET', 'POST'])
 def gerar_pdf():
