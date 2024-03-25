@@ -60,11 +60,7 @@ def gerar_pdf():
     if request.method == 'POST':
         # Obter os dados do formulário
         data = request.get_json()
-
-        # nome_medico = data['medico']['nome']
-        # crm_medico = data['medico']['crm']
-        # nome_paciente = data['paciente']
-        # receituario = data['receituario'].split('\n')
+        print(data)
 
         # Criar PDF com os dados
         form = PDF(data)
@@ -75,28 +71,11 @@ def gerar_pdf():
 
         form.adicionar_receituario()
 
-        # # Adicionar informações do médico
-        # form.set_font('Arial', 'B', 12)
-        # form.cell(0, 10, nome_medico, ln=True, align='C')
-        # form.cell(0, 10, crm_medico, ln=True, align='C')
-        # form.ln(20)
-
-        # # Adicionar nome do paciente
-        # form.set_font('Arial', 'B', 14)
-        # form.cell(0, 10, nome_paciente, ln=True, align='C')
-        # form.ln(15)
-
-        # # Adicionar conteúdo do receituário
-        # form.set_font('Arial', '', 12)
-        # for item in receituario:
-        #     form.multi_cell(0, 10, item, align='L')
-
         # Salvar PDF temporariamente
         pdf_temp = 'temp.pdf'
         form.output(pdf_temp)
 
         # Enviar o arquivo PDF como resposta
-        #return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
         return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
         #form.output('receituario_1.pdf')
     #return render_template('formulario.html')
