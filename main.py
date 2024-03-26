@@ -81,7 +81,7 @@ def gerar_pdf():
     pdf_temp = 'temp.pdf'
     form.output(pdf_temp)
 
-    filename = data['paciente'].split('').join('_')
+    filename = '_'.join(data['paciente'].split(''))
 
     # Enviar o arquivo PDF como resposta
     return send_file(pdf_temp, as_attachment=True, attachment_filename=f'{filename}.pdf')
