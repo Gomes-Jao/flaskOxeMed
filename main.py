@@ -1,8 +1,11 @@
 from flask import Flask, render_template, request, send_file, jsonify
 from fpdf import FPDF
 from datetime import datetime
+from flask_cors import CORS
 
+#app = Flask(__name__)
 app = Flask(__name__)
+CORS(app, resources={r'/': {'origins': ''}})
 
 class PDF(FPDF):
     #Conversão dos meses para extenso
@@ -55,30 +58,32 @@ class PDF(FPDF):
 def imprimir():
     return jsonify({"Olá": "Mundo"})
 
-@app.route('/receituario', methods=['GET', 'POST'])
+@app.route('/receituario', methods=['POST'])
 def gerar_pdf():
-    if request.method == 'POST':
-        # Obter os dados do formulário
-        data = request.get_json()
-        print(data)
+    # Obter os dados do formulário
+    data = request.get_json()
+    print(data)
 
-        # Criar PDF com os dados
-        form = PDF(data)
-        form.set_auto_page_break(auto=True, margin=35)
-        form.add_page()
+    if data is None:
+        return jsonify({"error": "No JSON data received"}), 400 
 
-        form.set_font('courier', '', 14)
+    # Criar PDF com os dados
+    form = PDF(data)
+    form.set_auto_page_break(auto=True, margin=35)
+    form.add_page()
 
-        form.adicionar_receituario()
+    form.set_font('courier', '', 14)
 
-        # Salvar PDF temporariamente
-        pdf_temp = 'temp.pdf'
-        form.output(pdf_temp)
+    form.adicionar_receituario()
 
-        # Enviar o arquivo PDF como resposta
-        return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
-        #form.output('receituario_1.pdf')
-    #return render_template('formulario.html')
+    # Salvar PDF temporariamente
+    pdf_temp = 'temp.pdf'
+    form.output(pdf_temp)
+
+    # Enviar o arquivo PDF como resposta
+    return send_file(pdf_temp, as_attachment=True, attachment_filename='receituario_1.pdf')
+    #form.output('receituario_1.pdf')
+#return render_template('formulario.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
