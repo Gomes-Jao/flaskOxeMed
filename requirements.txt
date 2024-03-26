@@ -7,3 +7,4 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.1
 datetime
 fpdf2
+Flask-CORS==4.0.0
