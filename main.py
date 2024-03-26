@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, send_file, jsonify
 from fpdf import FPDF
+from fpdf.enums import Xpos, Ypos
 from datetime import datetime
 from flask_cors import CORS
 
