@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 #app = Flask(__name__)
 app = Flask(__name__)
-CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app, resources={r'/*': {'origins': ''}})
 
 class PDF(FPDF):
     #Conversão dos meses para extenso
@@ -29,7 +29,7 @@ class PDF(FPDF):
 
         self.set_y(19)
         self.set_font('helvetica', '', 10)
-        self.cell(0, 0, self.dados["medico"]["crm"], align='R')
+        self.cell(0, 0, f'CRM {self.dados["medico"]["crm"]}', align='R')
 
         self.ln(20)
 
@@ -41,7 +41,7 @@ class PDF(FPDF):
     def adicionar_receituario(self):
         self.set_font('courier', '', 14)
         for item in self.dados["receituario"]:
-            self.multi_cell(0, 5, f'{item}\n', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            self.multi_cell(0, 5, f'- {item}\n', new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
     #Printa a data de emissão do receituário e a imagem do OxeMed
     def footer(self):
